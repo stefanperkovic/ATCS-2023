@@ -15,6 +15,7 @@ class Car:
 
 
 # When W or UP Error
+
 if self.velocity_y < 50:
     self.velocity_y += 10
 
