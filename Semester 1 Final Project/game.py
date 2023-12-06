@@ -1,5 +1,6 @@
 import pygame
-
+import sys
+from car import Car
 
 class Game:
     # Creating display info
@@ -9,6 +10,9 @@ class Game:
     WIDTH, HEIGHT = 800, 600
 
     def __init__(self):
+
+                    
+
         # Draw the initial screen
         self.screen.fill(self.BACKGROUND_COLOR)
  
@@ -30,25 +34,25 @@ class Game:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
-                    direction = (0, -speed)
+                    self.move_up()
                 elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    direction = (0, speed)
+                    self.move_down()
                 elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    direction = (-speed, 0)
+                    self.move_left()
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    direction = (speed, 0)
-            elif event.type == pygame.KEYUP:
-                if (
-                    event.key == pygame.K_UP
-                    or event.key == pygame.K_DOWN
-                    or event.key == pygame.K_LEFT
-                    or event.key == pygame.K_RIGHT
-                ):
-                    direction = (0, 0)
+                    self.move_right()
+            # elif event.type == pygame.KEYUP:
+            #     if (
+            #         event.key == pygame.K_UP
+            #         or event.key == pygame.K_DOWN
+            #         or event.key == pygame.K_LEFT
+            #         or event.key == pygame.K_RIGHT
+            #     ):
+            #         direction = (0, 0)
         
         
 
 
 if __name__ == "__main__":
-    pm = MangoGame()
+    pm = Game()
     pm.run()

@@ -3,28 +3,28 @@ import pygame
 
 
 class Car:
-
+    WIDTH = 50
+    HEIGHT = 50
 
     def __init__(self):
         self.x = 100
         self.y_ = 100
         self.velocity_x = 0
         self.velocity_y = 0
-        self.angle = 0
+        self.image = 
+        self.car = pygame.image.load("car.png")
+        self.car = pygame.transform.scale(self.car, (self.WIDTH, self.HEIGHT))
+
+    def move_up(self):
+        self.y += 10
+    def move_down(self):
+        self.y -= 10
+    def move_left(self):
+        self.x -= 10
+    def move_right(self):
+        self.x += 10
 
 
-
-# When W or UP Error
-
-if self.velocity_y < 50:
-    self.velocity_y += 10
-
-# When D or Right Error 
-if self.velocity_x < 30
-    self.velocity_x += 10
-
-# When A or Left Error
-if self.velocity_x < -30
-    self.velococif
+    def car.draw(self):
 
 
