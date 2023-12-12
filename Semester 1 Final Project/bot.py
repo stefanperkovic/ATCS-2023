@@ -12,8 +12,8 @@ class Bot(pygame.sprite.Sprite):
         # self.rect = self.truck.get_rect()
         self.rect_x = random.randint(50, 700)
         self.rect_y = random.randint(0, 50)
-        # self.speed = random.randint(2, 5)
-        self.speed = 0.1
+        self.speed = random.randint(5, 50) * 0.01
+        # self.speed = 0.1
 
 
 

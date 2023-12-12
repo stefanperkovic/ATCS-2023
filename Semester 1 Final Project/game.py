@@ -28,9 +28,11 @@ class Game:
         self.ai_3 = Bot(self)
         self.ai_4 = Bot(self)
         self.ai_5 = Bot(self)
+        self.ai_6 = Bot(self)
+        self.ai_7 = Bot(self)
 
 
-        self.enemies = [self.ai_1, self.ai_2, self.ai_3, self.ai_4, self.ai_5]
+        self.enemies = [self.ai_1, self.ai_2, self.ai_3, self.ai_4, self.ai_5, self.ai_6, self.ai_7]
 
         # Draw the initial screen
         self.screen.fill(self.BACKGROUND_COLOR)
@@ -38,12 +40,12 @@ class Game:
         self.road = pygame.transform.scale(self.road, (self.WIDTH, self.HEIGHT))
         self.screen.blit(self.road, (0,0))
 
-    # def check_collision(self):
-    #     for ai in self.enemies:
-    #         if self.car.rect.colliderect(ai.rect):
-    #             pygame.quit()
-    #             sys.exit()
 
+    def check_collision(self):
+        for ai in self.enemies:
+            if self.car.pixel_perfect_collision(self.car, ai):
+                pygame.quit()
+                sys.exit()
         
     def run(self):
         # Main game loop
@@ -76,7 +78,7 @@ class Game:
             for ai in self.enemies:
                 ai.move_forward()
 
-
+            # WHen a user holds down the key
             self.car.handle_input()
 
 
@@ -95,18 +97,13 @@ class Game:
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                         self.car.move_right()
 
-            # self.check_collision()
+            self.check_collision()
 
-            pygame.display.flip()
-
-            
+            pygame.display.flip()         
         
         # Quit Pygame
         pygame.quit()
         sys.exit()
-
-        
-        
 
 
 if __name__ == "__main__":

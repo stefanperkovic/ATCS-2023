@@ -7,14 +7,19 @@ class Car(pygame.sprite.Sprite):
     HEIGHT = 75
 
     def __init__(self, game):
-        self.velocity_x = 0.1
-        self.velocity_y = 0.1
+        self.velocity_x = 0.2
+        self.velocity_y = 0.2
         self.image = pygame.image.load("resources/car.png")
         self.image = pygame.transform.scale(self.image, (self.WIDTH, self.HEIGHT))
         # self.rect = self.image.get_rect()
         self.rect_x = 100
         self.rect_y = 500
 
+    def pixel_perfect_collision(self, sprite1, sprite2):
+        mask1 = pygame.mask.from_surface(sprite1.image)
+        mask2 = pygame.mask.from_surface(sprite2.truck)
+        offset = (sprite2.rect_x - sprite1.rect_x, sprite2.rect_y - sprite1.rect_y)
+        return mask1.overlap(mask2, offset)
 
     def move_up(self):
         self.rect_y -= self.velocity_y
