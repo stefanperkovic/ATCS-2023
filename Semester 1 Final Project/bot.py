@@ -1,60 +1,34 @@
 import pygame
-
+import random
 
 
 class Bot(pygame.sprite.Sprite):
-    WIDTH = 50
-    HEIGHT = 50
+    WIDTH = 75
+    HEIGHT = 75
 
     def __init__(self, game):
         self.truck = pygame.image.load("resources/truck.png")
         self.truck = pygame.transform.scale(self.truck, (self.WIDTH, self.HEIGHT))
-        
-
-        # Initialize Pygame 
-        pygame.init()
-        self.clock = pygame.time.Clock()
-        self.dt = 0
-        self.ghost_timer = 8000
-
-
-        # def run(self):
-        # # Main game loop
-        # running = True
-
-        # # Draw the initial screen
-        # self.screen.fill(self.BACKGROUND_COLOR)
-        # self.blocks.draw(self.screen)
-        # self.mango.draw(self.screen)
-        
-        # while running:
-        #     # Set fps to 120
-        #     self.dt += self.clock.tick(120)
-
-        #     # Handle closing the window
-        #     for event in pygame.event.get():
-        #         if event.type == pygame.QUIT:
-        #             running = False
-            
-        #     # Only update every 120 fps
-        #     if self.dt > 120:
-        #         self.dt = 0
-        #         self.mango.update()
-
-        #         # Draw to the screen
-        #         self.screen.fill(self.BACKGROUND_COLOR)
-        #         self.blocks.draw(self.screen)
-        #         self.mango.draw(self.screen)
-
-        #     # Update the display
-        #     pygame.display.flip()
-
-        # # Quit Pygame
-        # pygame.quit()
-        # sys.exit()
+        # self.rect = self.truck.get_rect()
+        self.rect_x = random.randint(50, 700)
+        self.rect_y = random.randint(0, 50)
+        # self.speed = random.randint(2, 5)
+        self.speed = 0.1
 
 
 
-        def draw(self, screen):
-            screen.blit(self.truck, (self.rect.x , self.rect.y))
+
+    def move_forward(self):
+        self.reset()
+        self.rect_y += self.speed
+
+    def reset(self):
+        if self.rect_y > 600:
+            self.rect_x = random.randint(50, 700)
+            self.rect_y = random.randint(0, 50)
+
+
+
+    def draw(self, screen):
+        screen.blit(self.truck, (self.rect_x , self.rect_y))
     
