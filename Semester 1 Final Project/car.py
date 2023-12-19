@@ -1,6 +1,11 @@
-# Stefan Perkovic
 import pygame
 
+"""
+    This file implements the users cars
+    
+
+    Stefan Perkovic December 18 2023
+"""
 
 class Car(pygame.sprite.Sprite):
     WIDTH = 75
@@ -17,7 +22,7 @@ class Car(pygame.sprite.Sprite):
 
     def pixel_perfect_collision(self, sprite1, sprite2):
         mask1 = pygame.mask.from_surface(sprite1.image)
-        mask2 = pygame.mask.from_surface(sprite2.truck)
+        mask2 = pygame.mask.from_surface(sprite2.image)
         offset = (sprite2.rect_x - sprite1.rect_x, sprite2.rect_y - sprite1.rect_y)
         return mask1.overlap(mask2, offset)
 
@@ -32,10 +37,12 @@ class Car(pygame.sprite.Sprite):
         
 
     def speed_up(self):
-        self.velocity_y += 10
+        self.velocity_y = 0.4
+        self.velocity_x = 0.4
 
     def slow_down(self):
-        self.velocity_y -= 10
+        self.velocity_y = 0.1
+        self.velocity_x = 0.1
 
 
     def handle_input(self):
@@ -48,18 +55,6 @@ class Car(pygame.sprite.Sprite):
             self.move_left()
         if keys[pygame.K_RIGHT]:
             self.move_right()
-
-
-    def init_fsm(self):
-        # Add State Transitions
-        states = ["NORMAL", "SLOW", "BOOST"]
-        actions = [self.slow_down, self.speed_up]
-
-        self.fsm.add_transition("OIL", "NORMAL", self.slow_down, "SLOW")
-        self.fsm.add_transition("OIL", "SLOW", self.slow_down, "SLOW")
-        self.fsm.add_transition("OIL", "BOOST", self.slow_down, "SLOW")
-
-        self.fsm.add_transition("ICE" )
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect_x, self.rect_y))

@@ -1,14 +1,24 @@
 import pygame
 import random
 
+"""
+    This file implements the ai cars
+    
+
+    Stefan Perkovic December 18 2023
+"""
 
 class Bot(pygame.sprite.Sprite):
     WIDTH = 75
     HEIGHT = 75
 
     def __init__(self, game):
-        self.truck = pygame.image.load("resources/truck.png")
-        self.truck = pygame.transform.scale(self.truck, (self.WIDTH, self.HEIGHT))
+        self.enemy_image = random.randint(1, 2)
+        if self.enemy_image == 1:
+            self.image = pygame.image.load("resources/truck.png")
+        else:
+            self.image = pygame.image.load("resources/enemies_car.png")
+        self.image = pygame.transform.scale(self.image, (self.WIDTH, self.HEIGHT))
         # self.rect = self.truck.get_rect()
         self.rect_x = random.randint(50, 700)
         self.rect_y = random.randint(0, 50)
@@ -30,5 +40,5 @@ class Bot(pygame.sprite.Sprite):
 
 
     def draw(self, screen):
-        screen.blit(self.truck, (self.rect_x , self.rect_y))
+        screen.blit(self.image, (self.rect_x , self.rect_y))
     
