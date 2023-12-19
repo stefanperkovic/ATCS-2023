@@ -51,6 +51,7 @@ class Game:
 
     def init_fsm(self):
         # Add State Transitions
+        # Displays my understanding of how to add transitons between finite states
         self.fsm.add_transition("OIL", "NORMAL", self.car.slow_down, "SLOW")
         self.fsm.add_transition("OIL", "SLOW", self.car.slow_down, "SLOW")
         self.fsm.add_transition("OIL", "BOOST", self.car.slow_down, "SLOW")
@@ -82,6 +83,7 @@ class Game:
                 sys.exit()
         # Checks if user colides with ice or oil and if so calls the fsm
         if self.car.pixel_perfect_collision(self.car, self.ice):
+            # Displays my understanding of using a FSM to call an action when in a certain state
             self.fsm.process("ICE")
         if self.car.pixel_perfect_collision(self.car, self.oil):
             self.fsm.process("OIL")
