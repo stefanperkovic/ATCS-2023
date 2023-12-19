@@ -1,15 +1,15 @@
 import pygame
 import sys
-import random
-import time
 from car import Car
 from bot import Bot
 from fsm import FSM
 from obstacle import Obstacle
 """
     This file implements the game
-
-
+    Takes in user input to move the car
+    Organizes the movemnt and drawing of bots
+    Uses the Finite State Machine to put the car in different states
+    if it collides with an obstacle
     Stefan Perkovic December 18 2023
 """
 class Game:
@@ -20,7 +20,6 @@ class Game:
     WIDTH, HEIGHT = 800, 600
 
     def __init__(self):
-
         # Initialize Pygame
         pygame.init()
  
@@ -40,19 +39,17 @@ class Game:
         self.init_fsm()
 
         # Initialize bots
-        self.ai_1 = Bot()
-        self.ai_2 = Bot()
-        self.ai_3 = Bot()
-        self.ai_4 = Bot()
-        self.ai_5 = Bot()
-        self.ai_6 = Bot()
+        self.ai_1 = Bot("TRUCK")
+        self.ai_2 = Bot("TRUCK")
+        self.ai_3 = Bot("TRUCK")
+        self.ai_4 = Bot("CAR")
+        self.ai_5 = Bot("CAR")
+        self.ai_6 = Bot("CAR")
         self.enemies = [self.ai_1, self.ai_2, self.ai_3, self.ai_4, self.ai_5, self.ai_6]
 
-        # Draw the initial screen
-        self.screen.fill(self.BACKGROUND_COLOR)
+        # Initialiae Background Image
         self.road = pygame.image.load("resources/road.jpg")
         self.road = pygame.transform.scale(self.road, (self.WIDTH, self.HEIGHT))
-        self.screen.blit(self.road, (0,0))
 
     def init_fsm(self):
         # Add State Transitions
@@ -64,13 +61,28 @@ class Game:
         self.fsm.add_transition("ICE", "SLOW", self.car.speed_up, "BOOST")
         self.fsm.add_transition("ICE", "BOOST", self.car.speed_up, "BOOST")
 
+    # Draws the game UI
+    def draw_screen(self):
+        # Draw Background and Car
+        self.screen.blit(self.road, (0,0))
+        self.car.draw(self.screen)
+
+        # Draw bots
+        for ai in self.enemies:
+            ai.draw(self.screen)
+
+        # Draws obstacles
+        self.ice.draw(self.screen)
+        self.oil.draw(self.screen)
+
+    # Cheks if the user collides with another object
     def check_collision(self):
         # Checks if user collides with another car
         for ai in self.enemies:
             if self.car.pixel_perfect_collision(self.car, ai):
                 pygame.quit()
                 sys.exit()
-        # Checks if user colides with ice or oil and if so call the fsm
+        # Checks if user colides with ice or oil and if so calls the fsm
         if self.car.pixel_perfect_collision(self.car, self.ice):
             self.fsm.process("ICE")
         if self.car.pixel_perfect_collision(self.car, self.oil):
@@ -80,54 +92,27 @@ class Game:
         # Main game loop
         running = True
 
-        # Draw Initial Screen
-        self.screen.blit(self.road, (0,0))
-        self.car.draw(self.screen)
+        # Draws inital screen
+        self.draw_screen()
 
-        # Draw bots
-        for ai in self.enemies:
-            ai.draw(self.screen)
-
+        # The main loop of the game that only ends when a collision occurs  
         while running:
             # Handle closing the window
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
 
-            # Draw to the screen
-            self.screen.blit(self.road, (0,0))
-            self.car.draw(self.screen)
-            
-            # Draw the bots
-            for ai in self.enemies:
-                ai.draw(self.screen)
+            # Draws the screen
+            self.draw_screen()
 
             # Bot Movement
             for ai in self.enemies:
                 ai.move_forward()
 
-            # WHen a user holds down the key
+            # Handles user imput
             self.car.handle_input()
 
-            # Draws obstacles
-            self.ice.draw(self.screen)
-            self.oil.draw(self.screen)
-
-            # User movement
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP or event.key == pygame.K_w:
-                        self.car.move_up()
-                    elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                        self.car.move_down()
-                    elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                        self.car.move_left()
-                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                        self.car.move_right()
-
+            # Checks collison
             self.check_collision()
 
             pygame.display.flip()         
@@ -135,7 +120,6 @@ class Game:
         # Quit Pygame
         pygame.quit()
         sys.exit()
-
 
 if __name__ == "__main__":
     pm = Game()

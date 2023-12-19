@@ -1,9 +1,11 @@
 import pygame
 
 """
-    This file implements the users cars
-    
-
+    This file implements the users car
+    Any imputs made in the game move the car here
+    Car can either be in a normal, slow, or boost state
+    If it hits oil it chagnes to slow and if it hits ice it changes to fast
+    If it collides with another car or truck the game ends as their was a crash
     Stefan Perkovic December 18 2023
 """
 
@@ -18,7 +20,8 @@ class Car(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.WIDTH, self.HEIGHT))
         self.rect_x = 400
         self.rect_y = 500
-
+    # Checks if the two line collide
+    # Written by Chatgpt
     def pixel_perfect_collision(self, sprite1, sprite2):
         mask1 = pygame.mask.from_surface(sprite1.image)
         mask2 = pygame.mask.from_surface(sprite2.image)
@@ -33,15 +36,16 @@ class Car(pygame.sprite.Sprite):
         self.rect_x -= self.velocity_x
     def move_right(self):
         self.rect_x += self.velocity_x
-        
+    # Faster state of the car
     def speed_up(self):
         self.velocity_y = 0.4
         self.velocity_x = 0.4
-
+    # Slower state of the car
     def slow_down(self):
         self.velocity_y = 0.1
         self.velocity_x = 0.1
-
+    # Handles the user imput when the keys are held down
+    # Written by Chatgpt
     def handle_input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
