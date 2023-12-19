@@ -11,13 +11,12 @@ class Car(pygame.sprite.Sprite):
     WIDTH = 75
     HEIGHT = 75
 
-    def __init__(self, game):
+    def __init__(self):
         self.velocity_x = 0.2
         self.velocity_y = 0.2
         self.image = pygame.image.load("resources/car.png")
         self.image = pygame.transform.scale(self.image, (self.WIDTH, self.HEIGHT))
-        # self.rect = self.image.get_rect()
-        self.rect_x = 100
+        self.rect_x = 400
         self.rect_y = 500
 
     def pixel_perfect_collision(self, sprite1, sprite2):
@@ -35,7 +34,6 @@ class Car(pygame.sprite.Sprite):
     def move_right(self):
         self.rect_x += self.velocity_x
         
-
     def speed_up(self):
         self.velocity_y = 0.4
         self.velocity_x = 0.4
@@ -43,7 +41,6 @@ class Car(pygame.sprite.Sprite):
     def slow_down(self):
         self.velocity_y = 0.1
         self.velocity_x = 0.1
-
 
     def handle_input(self):
         keys = pygame.key.get_pressed()

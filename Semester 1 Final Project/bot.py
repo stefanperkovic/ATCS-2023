@@ -12,21 +12,16 @@ class Bot(pygame.sprite.Sprite):
     WIDTH = 75
     HEIGHT = 75
 
-    def __init__(self, game):
+    def __init__(self):
         self.enemy_image = random.randint(1, 2)
         if self.enemy_image == 1:
             self.image = pygame.image.load("resources/truck.png")
         else:
             self.image = pygame.image.load("resources/enemies_car.png")
         self.image = pygame.transform.scale(self.image, (self.WIDTH, self.HEIGHT))
-        # self.rect = self.truck.get_rect()
         self.rect_x = random.randint(50, 700)
         self.rect_y = random.randint(0, 50)
         self.speed = random.randint(5, 50) * 0.01
-        # self.speed = 0.1
-
-
-
 
     def move_forward(self):
         self.reset()
@@ -36,8 +31,6 @@ class Bot(pygame.sprite.Sprite):
         if self.rect_y > 600:
             self.rect_x = random.randint(50, 700)
             self.rect_y = random.randint(0, 50)
-
-
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect_x , self.rect_y))
