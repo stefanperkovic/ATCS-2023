@@ -7,16 +7,14 @@ from obstacle import Obstacle
 """
     This file implements the game
     Takes in user input to move the car
-    Organizes the movemnt and drawing of bots
-    Uses the Finite State Machine to put the car in different states
-    if it collides with an obstacle
+    Organizes the movement and drawing of bots
+    Uses the Finite State Machine to put the car in different
+    states if it collides with an obstacle
     Stefan Perkovic December 18 2023
 """
 class Game:
     # Creating display info
     START_X, START_Y = 24, 24
-    SPACING = 50
-    BACKGROUND_COLOR = (0, 0, 0)
     WIDTH, HEIGHT = 800, 600
 
     def __init__(self):

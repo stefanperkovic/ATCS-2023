@@ -1,6 +1,5 @@
 import pygame
 import random
-
 """
     This file implements the ai cars
     Spawns them at random x and y cords near the top of the screen
@@ -8,10 +7,10 @@ import random
     bot makes it to the bottom of the screen
     Stefan Perkovic December 18 2023
 """
-
 class Bot(pygame.sprite.Sprite):
     WIDTH = 75
     HEIGHT = 75
+    END_OF_ROAD = 600
 
     def __init__(self, type):
         if type == "TRUCK":
@@ -30,7 +29,7 @@ class Bot(pygame.sprite.Sprite):
 
     # Resets the bot to a random position at the top of the screen
     def reset(self):
-        if self.rect_y > 600:
+        if self.rect_y > self.END_OF_ROAD:
             self.rect_x = random.randint(50, 700)
             self.rect_y = random.randint(0, 50)
 
